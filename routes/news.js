@@ -1,11 +1,12 @@
 const Router = require('express').Router();
 const News = require('../model/news');
 
-Router.get('/', (req, res) => {
-    res.send("Welcome to the brand new beautiful news api");
+Router.get('/all', async (req, res) => {
+    const allNews = await News.find().sort('-date');
+    res.send(allNews);
 });
 
-Router.get('/all', async (req, res) => {
+Router.get('/', async (req, res) => {
     const allNews = await News.find().sort('-date');
     res.send(allNews);
 });
