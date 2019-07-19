@@ -1,5 +1,5 @@
 const Router = require('express').Router();
-const {News} = require('../model/news');
+const {News} = require('../model/News');
 
 Router.get('/all', async (req, res) => {
     const allNews = await News.find().sort('-date');

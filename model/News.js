@@ -23,7 +23,7 @@ const News = mongoose.model('news', new mongoose.Schema({
             required: true
         },
         date: {
-            type: String,
+            type: Date,
             required: true
         }
     })

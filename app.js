@@ -27,19 +27,19 @@ mongoose.connect(config.get("mongoUri"), {useNewUrlParser: true})
     .then(() => console.log('Connected to MongoDB...'))
     .catch(err => console.error('Could not connect to MongoDB...'));
 
-// FetchNews();
+ FetchNews();
 
-//run this task everyday at 13:20 GMT
-const task = cron.schedule('20 13 * * * *', async () => {
-    console.log('Fetching news items');
-    try {
-        await FetchNews()
-    } catch (error) {
-        console.log('Error executing cron job');
-    }
-});
+// //run this task everyday at 13:20 GMT
+// const task = cron.schedule('* * * * *', async () => {
+//     console.log('Fetching news items');
+//     try {
+//         await FetchNews()
+//     } catch (error) {
+//         console.log('Error executing cron job');
+//     }
+// });
 
 
-task.start();
+// task.start();
 
 module.exports = app;
