@@ -14,10 +14,10 @@ const CategoryUrls = {
 };
 
 /**
- * Tie everything together here. Our own main....LOLXs
+ * Tie everything together here. Forgive me, I couldn't think of a better name, lets assume it's our own main....LOLXs
  * @returns {Promise<void>}
  */
-async function letItRain() {
+async function main() {
     //clear the database
     const del = await News.deleteMany({});
     console.log('Database Cleared!');
@@ -127,6 +127,15 @@ async function getNewsItem(newsUrl, categoryUrl) {
                     content = content.concat(paragraph, '\n'); //append a newline character after each paragraph
                 });
 
+                //some articles may contain quotes
+                $('.entry > blockquote > p').each(function () {
+                    const paragraph = $(this).text().trim();
+                    console.log(paragraph);
+
+                    if (paragraph.length !== 0)
+                        content = content.concat(paragraph, '\n');
+                });
+
                 const newsItem = new News({
                     headline: headline,
                     content: content.trimEnd().trimStart(),
@@ -147,4 +156,4 @@ function getKeyByValue(object, value) {
     return Object.keys(object).find(key => object[key] === value);
 }
 
-module.exports.FetchNews = letItRain;
+module.exports.FetchNews = main;
