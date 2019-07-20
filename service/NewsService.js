@@ -130,7 +130,6 @@ async function getNewsItem(newsUrl, categoryUrl) {
                 //some articles may contain quotes
                 $('.entry > blockquote > p').each(function () {
                     const paragraph = $(this).text().trim();
-                    console.log(paragraph);
 
                     if (paragraph.length !== 0)
                         content = content.concat(paragraph, '\n');
