@@ -8,6 +8,7 @@ const cron = require('node-cron');
 const newsRouter = require('./routes/news');
 const config = require('config');
 const app = express();
+const moment = require('moment');
 
 app.use(logger('dev'));
 app.use(express.urlencoded({extended: false}));
@@ -25,22 +26,20 @@ app.get('/', (req, res) => {
 
 mongoose.connect(config.get("mongoUri"), {useNewUrlParser: true})
     .then(() => console.log('Connected to MongoDB...'))
-    .catch(err => console.error('Could not connect to MongoDB...'));
+    .catch(() => console.error('Could not connect to MongoDB...'));
 
 
-//run everyday at 7:15AM
-const task = cron.schedule('15 07 * * *', async () => {
-    console.log('......Begin Fetching News Items.........');
+//We are currently running on a free dyno at heroku so scheduling this task to run at a particular time of the day is highly not ideal.
+//Instead we can just fetch the news every 25mins which is 5mins before the app times out.
+const task = cron.schedule('*/25 * * * *', async () => {
+    const time = moment().format("dddd: MMMM d, YYYY HH:mm:SS");
+    console.log('Fetch News::::::' + time);
     try {
         await FetchNews()
     } catch (error) {
         console.log('Error executing cron job');
     }
-}, {
-    scheduled: false,
-    timezone: "Europe/London"
 });
-
 
 task.start();
 
