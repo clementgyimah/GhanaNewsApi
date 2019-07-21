@@ -28,12 +28,10 @@ mongoose.connect(config.get("mongoUri"), {useNewUrlParser: true})
     .then(() => console.log('Connected to MongoDB...'))
     .catch(() => console.error('Could not connect to MongoDB...'));
 
-
-
 //We are currently running on a free dyno at heroku so scheduling this task to run at a particular time of the day is highly not ideal.
 //Instead we can just fetch the news every 20mins which is 10mins before the app idles out.
 const task = cron.schedule('*/20 * * * *', async () => {
-    const time = moment().format("dddd: MMMM d, YYYY HH:mm:SS");
+    const time = moment().format("dddd: MMMM D, YYYY HH:mm:SS");
     console.log('Fetch News::::::' + time);
     try {
         await FetchNews()
