@@ -1,7 +1,7 @@
 module.exports.Categories = [
     'music',
     'sport',
-    'showbiz',
+    // 'showbiz',
     'lifestyle',
     'regional',
     'business'

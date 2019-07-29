@@ -19,12 +19,12 @@ const CategoryUrls = {
  */
 async function main() {
     //clear the database
-    const del = await News.deleteMany({});
+    await News.deleteMany({});
     console.log('Database Cleared!');
-    Object.keys(CategoryUrls).forEach(async function (newsCategoryUrl) {
+    for (const newsCategoryUrl of Object.keys(CategoryUrls)) {
         console.log("Getting Base Urls For: " + newsCategoryUrl);
         await fetchNews(CategoryUrls[newsCategoryUrl]);
-    });
+    }
 }
 
 
@@ -38,10 +38,10 @@ async function fetchNews(url) {
     let newsUrls = await getUrls(url);
     console.log(newsUrls.length + " News Item Urls in Page: " + url + "...");
 
-    newsUrls.forEach(async function (newsUrl) {
+    for (const newsUrl of newsUrls) {
         const newsItem = await getNewsItem(newsUrl, url);
         await saveNewsItem(newsItem);
-    });
+    }
 }
 
 //Store the resulting news Item to the database
