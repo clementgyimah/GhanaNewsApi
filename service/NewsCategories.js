@@ -3,6 +3,7 @@ module.exports.Categories = [
     'sport',
     // 'showbiz',
     'lifestyle',
-    'regional',
-    'business'
+   // 'regional',
+    'business',
+    'politics'
 ];

@@ -19,6 +19,7 @@ Router.get('/', async (req, res) => {
  */
 Router.get('/:category', async (req, res) => {
     const category = req.params.category;
+
     if (!Categories.includes(category))
         res.status(400).send({
             status: 'rejected',

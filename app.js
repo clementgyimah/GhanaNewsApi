@@ -3,7 +3,10 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
-const {FetchNews} = require('./service/NewsService');
+const {GhanaMotionProvider} = require('./service/GhanaMotionProvider');
+const {GhanaWebProvider} = require('./service/GhanaWebProvider');
+const {News} = require('./model/News');
+
 const cron = require('node-cron');
 const newsRouter = require('./routes/news');
 const config = require('config');
@@ -28,19 +31,23 @@ mongoose.connect(config.get("mongoUri"), {useNewUrlParser: true})
     .then(() => console.log('Connected to MongoDB...'))
     .catch(() => console.error('Could not connect to MongoDB...'));
 
-//We are currently running on a free dyno at heroku so scheduling this task to run at a particular time of the day is highly not ideal.
+// We are currently running on a free dyno at heroku so scheduling this task to run at a particular time of the day is highly not ideal.
 //Instead we can just fetch the news every 20mins which is 10mins before the app idles out.
 const task = cron.schedule('*/20 * * * *', async () => {
     const time = moment().format("dddd: MMMM D, YYYY HH:mm:SS");
     console.log('Fetch News::::::' + time);
     try {
-        await FetchNews()
+        //always clear database before adding new entries
+        await News.deleteMany({});
+        await GhanaWebProvider();
+        await GhanaMotionProvider();
     } catch (error) {
         console.log('Error executing cron job');
     }
 });
 
 task.start();
+
 
 module.exports = app;
 

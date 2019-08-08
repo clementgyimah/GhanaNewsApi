@@ -2,15 +2,9 @@ const {News, ValidateNews} = require('../model/News');
 const Cheerio = require('cheerio');
 const Request = require('request');
 
-const PAGE_LENGTH = 3;
 
 const CategoryUrls = {
-    'music': 'https://news.ghanamotion.com/category/music/',
-    'sport': 'https://news.ghanamotion.com/category/sport/',
-    'showbiz': 'https://news.ghanamotion.com/category/showbiz/',
-    'lifestyle': 'https://news.ghanamotion.com/category/lifestyle/',
-    'regional': 'https://news.ghanamotion.com/category/news/regional-news/',
-    'business': 'https://news.ghanamotion.com/category/business/'
+    'politics': 'https://www.ghanaweb.com/GhanaHomePage/politics/',
 };
 
 /**
@@ -19,11 +13,10 @@ const CategoryUrls = {
  */
 async function main() {
     //clear the database
-    await News.deleteMany({});
     console.log('Database Cleared!');
-    for (const newsCategoryUrl of Object.keys(CategoryUrls)) {
-        console.log("Getting Base Urls For: " + newsCategoryUrl);
-        await fetchNews(CategoryUrls[newsCategoryUrl]);
+    for (const category of Object.keys(CategoryUrls)) {
+        console.log("Getting Base Urls For: " + category);
+        await fetchNews(CategoryUrls[category]);
     }
 }
 
@@ -34,12 +27,13 @@ async function main() {
  * @param url
  * @returns {Promise<void>}
  */
-async function fetchNews(url) {
-    let newsUrls = await getUrls(url);
-    console.log(newsUrls.length + " News Item Urls in Page: " + url + "...");
+async function fetchNews(baseUrl) {
+    let relativeUrls = await getUrls(baseUrl);
 
-    for (const newsUrl of newsUrls) {
-        const newsItem = await getNewsItem(newsUrl, url);
+    const absoluteNewsUrls = relativeUrls.map(relUrl => baseUrl + relUrl);
+
+    for (const newsUrl of absoluteNewsUrls) {
+        const newsItem = await getNewsItem(newsUrl, baseUrl);
         await saveNewsItem(newsItem);
     }
 }
@@ -65,24 +59,42 @@ async function saveNewsItem(newsItem) {
  * @returns {Promise<*>}
  */
 async function getUrls(category) {
-    const newsPageUrls = buildUrls(category, PAGE_LENGTH);
     let newsUrls = [];
+    let newsPageUrls = [];
+
+    for (const key of Object.keys(CategoryUrls)) {
+        newsPageUrls.push(CategoryUrls[key]);
+    }
 
     return new Promise(resolve => {
-            let count = 0;
             newsPageUrls.forEach(function (url) {
                 Request(url, function (error, response, html) {
-                    count++;
                     if (!error && response.statusCode === 200) {
-                        const $ = Cheerio.load(html);
+                        let $ = Cheerio.load(html);
+                        const leftSection = $('.panelbox > .world-sec-wrap > .world-sec-main > .world-sec-left').first().html();
+                        const rightSection = $('.panelbox > .world-sec-wrap > .world-sec-main > .world-sec-right').first().html();
+                        const leadItemSelector = '.newsLead > .image > a';
+                        const leftRemainingItemsSelector = '.newList > ul > li > a';
+                        const rightRemainingItemsSelector = 'ul > li > a';
 
-                        $('.post-box-title > a').each(function () {
+                        //load leading news item on the left
+                        $ = Cheerio.load(leftSection);
+                        const newsLeadUrl = $(leadItemSelector).attr('href');
+                        newsUrls.push(newsLeadUrl)
+
+                        //load remaining news items on the left
+                        $(leftRemainingItemsSelector).each(function () {
                             newsUrls.push($(this).attr('href'));
                         });
 
-                        //stop the process when PAGE_LENGTH number of pages are processed. We don't want to go all the way to infinity
-                        if (count === PAGE_LENGTH)
-                            resolve(newsUrls);
+                        //load news items on the right. There seem to be no leading news item for the right divs
+                        $ = Cheerio.load(rightSection);
+                        $(rightRemainingItemsSelector).each(function () {
+                            newsUrls.push($(this).attr('href'));
+                        });
+
+                        resolve(newsUrls);
+
                     } else {
                         console.log(error);
                     }
@@ -92,18 +104,6 @@ async function getUrls(category) {
     )
 }
 
-
-/**
- * Accept an url of the form https://news.ghanamotion.com/category/ and build urls
- * of the form https://news.ghanamotion.com/category/page/n where  length > n > 0
- */
-function buildUrls(url, length) {
-    let urls = [];
-    for (let i = 1; i <= length; i++) {
-        urls.push(url.concat('page/', i));
-    }
-    return urls;
-}
 
 /**
  * Extract a single news Item from a news url.
@@ -116,30 +116,18 @@ async function getNewsItem(newsUrl, categoryUrl) {
         Request(newsUrl, async function (error, response, html) {
             if (!error && response.statusCode === 200) {
                 const $ = Cheerio.load(html);
-                const headline = $('.post-title').first().text().trim();
-                const date = $('.post-meta > span').first().text();
-                const imageUrl = $('.single-post-thumb > img').first().attr('src');
-                let content = ' ';
 
-                //grab individual paragraphs from article, concatenate them together and separate them using a newline character
-                $('.entry > p').each(function () {
-                    const paragraph = $(this).text();
-                    content = content.concat(paragraph, '\n'); //append a newline character after each paragraph
-                });
+                const date = $('#mainbody .article-left-col > #date').first().text();
+                const headline = $('#mainbody .article-left-col > h1').first().text();
+                const content = $('#mainbody .article-left-col > p[style*="clear:right"]').first().text();
+                const imageUrl = $('#mainbody .article-image > a > img').attr('src');
 
-                //some articles may contain quotes
-                $('.entry > blockquote > p').each(function () {
-                    const paragraph = $(this).text().trim();
-
-                    if (paragraph.length !== 0)
-                        content = content.concat(paragraph, '\n');
-                });
 
                 const newsItem = new News({
                     headline: headline,
                     content: content.trimEnd().trimStart(),
                     date: date,
-                    imageUrl: imageUrl,
+                     imageUrl: imageUrl,
                     category: getKeyByValue(CategoryUrls, categoryUrl)
                 });
 
@@ -155,4 +143,4 @@ function getKeyByValue(object, value) {
     return Object.keys(object).find(key => object[key] === value);
 }
 
-module.exports.FetchNews = main;
+module.exports.GhanaWebProvider = main;
