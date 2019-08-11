@@ -9,6 +9,8 @@ const {News} = require('./model/News');
 
 const cron = require('node-cron');
 const newsRouter = require('./routes/news');
+const categoriesRouter = require('./routes/categories');
+
 const config = require('config');
 const app = express();
 const moment = require('moment');
@@ -18,13 +20,17 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.set('view engine', 'ejs');
 
 //routes
 app.use('/news', newsRouter);
+app.use('/categories', categoriesRouter);
+
 
 //default route
 app.get('/', (req, res) => {
-    res.send("Welcome to the news api. Access news content from /news. You may access all news with /news/all or sports news with /news/sport");
+    //res.send("Welcome to the news api. Access news content from /news. You may access all news with /news/all or sports news with /news/sport");
+    res.render('index');
 });
 
 mongoose.connect(config.get("mongoUri"), {useNewUrlParser: true})

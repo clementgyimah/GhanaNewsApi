@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Daemon's Ghana News API</title>
+</head>
+<body>
+<div class="container">
+    <h2 class="text-center">Ghana News API</h2>
+    Available endpoints:
+    <ul>
+        <li>
+            <a href="/categories">
+                <span class="font-italic font-weight-bold text-primary">
+                    GET /categories
+                </span>
+            </a>
+            Get the list of available news categories
+        </li>
+        <li>
+            <a href="/news">
+                <span class="font-italic font-weight-bold text-primary">
+                GET /news
+                </span>
+            </a>
+            Get all available news from all available categories combined
+
+        </li>
+        <li>
+            <span class="font-italic font-weight-bold text-primary">GET /news/{category}</span> Get all news content
+            from a specific category. Example:
+            <a href="/news/politics">
+                <span class="font-italic font-weight-bold text-primary">
+                /news/politics
+            </span>
+            </a>
+            will return all news related to politics
+        </li>
+    </ul>
+</div>
+</body>
+</html>
