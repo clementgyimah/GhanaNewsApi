@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d0b9f072-29f2-4670-9603-16f97bfaa8a1" name="Default Changelist" comment="return an error object when requested category doesn't exist">
+    <list default="true" id="d0b9f072-29f2-4670-9603-16f97bfaa8a1" name="Default Changelist" comment="fix unhandled promises in GhanaWebProvider">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/NewsCategories.js" beforeDir="false" afterPath="$PROJECT_DIR$/service/NewsCategories.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/NewsService.js" beforeDir="false" afterPath="$PROJECT_DIR$/service/NewsService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution>
+      <executable />
+    </execution>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -19,28 +23,8 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>processing</find>
-      <find>category</find>
-      <find>ECONN</find>
-      <find>server</find>
-      <find>port</find>
-      <find>ENV</find>
-      <find>.save</find>
-      <find>===</find>
-      <find>fetchnews</find>
-      <find>console.log</find>
-    </findStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-1" />
-    <option name="y" value="32" />
-    <option name="width" value="874" />
-    <option name="height" value="735" />
   </component>
   <component name="ProjectId" id="1OfoTpLbcKOogWdWA35xGWx3jzy" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -49,7 +33,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="javascript.nodejs.core.library.configured.version" value="10.14.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/service" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -60,16 +44,18 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="I:\DEV\PROJECTS\JS\newscentral\service" />
+      <recent name="C:\Users\Rafsanjani\Desktop\newscrawler\model" />
+      <recent name="C:\Users\Rafsanjani\Desktop\newscrawler\routes" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Rafsanjani\Desktop\newscrawler\service" />
       <recent name="C:\Users\Rafsanjani\Desktop\newscrawler" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Rafsanjani\Desktop\newscrawler\model" />
-      <recent name="C:\Users\Rafsanjani\Desktop\newscrawler\routes" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -103,7 +89,18 @@
       <workItem from="1563945936844" duration="851000" />
       <workItem from="1563946958872" duration="1239000" />
       <workItem from="1564378025112" duration="242000" />
-      <workItem from="1564390459430" duration="10000" />
+      <workItem from="1564390459430" duration="2030000" />
+      <workItem from="1564466610670" duration="77000" />
+      <workItem from="1564466719514" duration="6746000" />
+      <workItem from="1564473931138" duration="555000" />
+      <workItem from="1564474489463" duration="57000" />
+      <workItem from="1564474634242" duration="2746000" />
+      <workItem from="1564502338353" duration="2403000" />
+      <workItem from="1564509222293" duration="2756000" />
+      <workItem from="1564606598408" duration="16000" />
+      <workItem from="1565261340136" duration="1222000" />
+      <workItem from="1565558880543" duration="322000" />
+      <workItem from="1565559298721" duration="4546000" />
     </task>
     <task id="LOCAL-00001" summary="import config file and set default router">
       <created>1563491476315</created>
@@ -168,7 +165,28 @@
       <option name="project" value="LOCAL" />
       <updated>1563697120871</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="exclude showbiz from categories">
+      <created>1564390498637</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1564390498637</updated>
+    </task>
+    <task id="LOCAL-00011" summary="fix unhandled promises in GhanaWebProvider">
+      <created>1565262537094</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1565262537094</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Add view using EJS">
+      <created>1565563414848</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1565563414848</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -197,6 +215,9 @@
     <MESSAGE value="return an error object when requested category doesn't exist" />
     <MESSAGE value="format task date properly" />
     <MESSAGE value="increase version number" />
-    <option name="LAST_COMMIT_MESSAGE" value="increase version number" />
+    <MESSAGE value="exclude showbiz from categories" />
+    <MESSAGE value="fix unhandled promises in GhanaWebProvider" />
+    <MESSAGE value="Add view using EJS" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add view using EJS" />
   </component>
 </project>
