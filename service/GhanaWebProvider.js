@@ -12,11 +12,13 @@ const CategoryUrls = {
  * @returns {Promise<void>}
  */
 async function main() {
-    //clear the database
-    console.log('Database Cleared!');
     for (const category of Object.keys(CategoryUrls)) {
         console.log("Getting Base Urls For: " + category);
-        await fetchNews(CategoryUrls[category]);
+        try {
+            await fetchNews(CategoryUrls[category]);
+        } catch (e) {
+            console.log("Error fetching news: " + e)
+        }
     }
 }
 
@@ -24,17 +26,21 @@ async function main() {
 /**
  * Given a url which is of type CategoryUrl, build it's news url list and fetch all news from the
  * specified number of pages
- * @param url
  * @returns {Promise<void>}
+ * @param baseUrl
  */
 async function fetchNews(baseUrl) {
-    let relativeUrls = await getUrls(baseUrl);
+    try {
+        let relativeUrls = await getUrls(baseUrl);
 
-    const absoluteNewsUrls = relativeUrls.map(relUrl => baseUrl + relUrl);
+        const absoluteNewsUrls = relativeUrls.map(relUrl => baseUrl + relUrl);
 
-    for (const newsUrl of absoluteNewsUrls) {
-        const newsItem = await getNewsItem(newsUrl, baseUrl);
-        await saveNewsItem(newsItem);
+        for (const newsUrl of absoluteNewsUrls) {
+            const newsItem = await getNewsItem(newsUrl, baseUrl);
+            await saveNewsItem(newsItem);
+        }
+    } catch (e) {
+        console.log(e)
     }
 }
 
@@ -66,7 +72,9 @@ async function getUrls(category) {
         newsPageUrls.push(CategoryUrls[key]);
     }
 
-    return new Promise(resolve => {
+    console.log(newsPageUrls.length + " obtained")
+
+    return new Promise((resolve, reject) => {
             newsPageUrls.forEach(function (url) {
                 Request(url, function (error, response, html) {
                     if (!error && response.statusCode === 200) {
@@ -93,10 +101,12 @@ async function getUrls(category) {
                             newsUrls.push($(this).attr('href'));
                         });
 
+
                         resolve(newsUrls);
 
                     } else {
-                        console.log(error);
+                        reject(error)
+                        console.log(error + response + html);
                     }
                 });
             });
@@ -127,7 +137,7 @@ async function getNewsItem(newsUrl, categoryUrl) {
                     headline: headline,
                     content: content.trimEnd().trimStart(),
                     date: date,
-                     imageUrl: imageUrl,
+                    imageUrl: imageUrl,
                     category: getKeyByValue(CategoryUrls, categoryUrl)
                 });
 

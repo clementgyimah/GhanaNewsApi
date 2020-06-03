@@ -18,11 +18,13 @@ const CategoryUrls = {
  * @returns {Promise<void>}
  */
 async function main() {
-    //clear the database
-    console.log('Database Cleared!');
-    for (const newsCategoryUrl of Object.keys(CategoryUrls)) {
-        console.log("Getting Base Urls For: " + newsCategoryUrl);
-        await fetchNews(CategoryUrls[newsCategoryUrl]);
+    for (const category of Object.keys(CategoryUrls)) {
+        console.log("Getting Base Urls For: " + category);
+        try {
+            await fetchNews(CategoryUrls[category]);
+        } catch (e) {
+            console.log("Error fetching News: " + e)
+        }
     }
 }
 
@@ -39,7 +41,8 @@ async function fetchNews(url) {
 
     for (const newsUrl of newsUrls) {
         const newsItem = await getNewsItem(newsUrl, url);
-        await saveNewsItem(newsItem);
+        console.log("got news item here");
+        await saveNewsItem(newsItem)
     }
 }
 
@@ -47,7 +50,6 @@ async function fetchNews(url) {
 async function saveNewsItem(newsItem) {
     try {
         if (ValidateNews(newsItem)) {
-            //console.log("content length: " + newsItem.content.length)
             const savedNews = await newsItem.save();
             console.log("Saved News Item: Content Length: " + savedNews.content.length);
         }
@@ -67,7 +69,7 @@ async function getUrls(category) {
     const newsPageUrls = buildUrls(category, PAGE_LENGTH);
     let newsUrls = [];
 
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
             let count = 0;
             newsPageUrls.forEach(function (url) {
                 Request(url, function (error, response, html) {
@@ -83,6 +85,7 @@ async function getUrls(category) {
                         if (count === PAGE_LENGTH)
                             resolve(newsUrls);
                     } else {
+                        reject(error)
                         console.log(error);
                     }
                 });

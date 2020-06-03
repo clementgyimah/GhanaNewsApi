@@ -3,9 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="d0b9f072-29f2-4670-9603-16f97bfaa8a1" name="Default Changelist" comment="fix unhandled promises in GhanaWebProvider">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/default.json" beforeDir="false" afterPath="$PROJECT_DIR$/config/default.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/GhanaWebProvider.js" beforeDir="false" afterPath="$PROJECT_DIR$/service/GhanaWebProvider.js" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,11 +31,17 @@
   </component>
   <component name="ProjectId" id="1OfoTpLbcKOogWdWA35xGWx3jzy" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="javascript.nodejs.core.library.configured.version" value="10.14.2" />
+    <property name="javascript.nodejs.core.library.configured.version" value="12.17.0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/service" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -57,18 +66,6 @@
       <recent name="C:\Users\Rafsanjani\Desktop\newscrawler\service" />
       <recent name="C:\Users\Rafsanjani\Desktop\newscrawler" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -101,6 +98,7 @@
       <workItem from="1565261340136" duration="1222000" />
       <workItem from="1565558880543" duration="322000" />
       <workItem from="1565559298721" duration="4546000" />
+      <workItem from="1591196567356" duration="873000" />
     </task>
     <task id="LOCAL-00001" summary="import config file and set default router">
       <created>1563491476315</created>
@@ -190,20 +188,19 @@
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="import config file and set default router" />
@@ -219,5 +216,71 @@
     <MESSAGE value="fix unhandled promises in GhanaWebProvider" />
     <MESSAGE value="Add view using EJS" />
     <option name="LAST_COMMIT_MESSAGE" value="Add view using EJS" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1750" height="392" key="GridCell.Tab.0.bottom" timestamp="1591197282898">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state width="1750" height="392" key="GridCell.Tab.0.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1591197282898" />
+    <state width="1750" height="392" key="GridCell.Tab.0.center" timestamp="1591197282897">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state width="1750" height="392" key="GridCell.Tab.0.center/0.0.1792.1120@0.0.1792.1120" timestamp="1591197282897" />
+    <state width="1750" height="392" key="GridCell.Tab.0.left" timestamp="1591197282896">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state width="1750" height="392" key="GridCell.Tab.0.left/0.0.1792.1120@0.0.1792.1120" timestamp="1591197282896" />
+    <state width="1750" height="392" key="GridCell.Tab.0.right" timestamp="1591197282898">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state width="1750" height="392" key="GridCell.Tab.0.right/0.0.1792.1120@0.0.1792.1120" timestamp="1591197282898" />
+    <state width="1750" height="392" key="GridCell.Tab.1.bottom" timestamp="1591197282739">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state width="1750" height="392" key="GridCell.Tab.1.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1591197282739" />
+    <state width="1750" height="392" key="GridCell.Tab.1.center" timestamp="1591197282737">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state width="1750" height="392" key="GridCell.Tab.1.center/0.0.1792.1120@0.0.1792.1120" timestamp="1591197282737" />
+    <state width="1750" height="392" key="GridCell.Tab.1.left" timestamp="1591197282736">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state width="1750" height="392" key="GridCell.Tab.1.left/0.0.1792.1120@0.0.1792.1120" timestamp="1591197282736" />
+    <state width="1750" height="392" key="GridCell.Tab.1.right" timestamp="1591197282738">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state width="1750" height="392" key="GridCell.Tab.1.right/0.0.1792.1120@0.0.1792.1120" timestamp="1591197282738" />
+    <state width="1750" height="392" key="GridCell.Tab.2.bottom" timestamp="1591197282743">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state width="1750" height="392" key="GridCell.Tab.2.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1591197282743" />
+    <state width="1750" height="392" key="GridCell.Tab.2.center" timestamp="1591197282740">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state width="1750" height="392" key="GridCell.Tab.2.center/0.0.1792.1120@0.0.1792.1120" timestamp="1591197282740" />
+    <state width="1750" height="392" key="GridCell.Tab.2.left" timestamp="1591197282739">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state width="1750" height="392" key="GridCell.Tab.2.left/0.0.1792.1120@0.0.1792.1120" timestamp="1591197282739" />
+    <state width="1750" height="392" key="GridCell.Tab.2.right" timestamp="1591197282742">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state width="1750" height="392" key="GridCell.Tab.2.right/0.0.1792.1120@0.0.1792.1120" timestamp="1591197282742" />
+    <state width="1750" height="392" key="GridCell.Tab.3.bottom" timestamp="1591197282749">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state width="1750" height="392" key="GridCell.Tab.3.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1591197282749" />
+    <state width="1750" height="392" key="GridCell.Tab.3.center" timestamp="1591197282747">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state width="1750" height="392" key="GridCell.Tab.3.center/0.0.1792.1120@0.0.1792.1120" timestamp="1591197282747" />
+    <state width="1750" height="392" key="GridCell.Tab.3.left" timestamp="1591197282745">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state width="1750" height="392" key="GridCell.Tab.3.left/0.0.1792.1120@0.0.1792.1120" timestamp="1591197282745" />
+    <state width="1750" height="392" key="GridCell.Tab.3.right" timestamp="1591197282748">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state width="1750" height="392" key="GridCell.Tab.3.right/0.0.1792.1120@0.0.1792.1120" timestamp="1591197282748" />
   </component>
 </project>
