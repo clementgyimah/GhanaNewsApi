@@ -44,6 +44,13 @@ const task = cron.schedule('*/10 * * * *', async () => {
     const time = moment().format("dddd: MMMM D, YYYY HH:mm:SS");
     console.log('Job Started:::' + time);
 
+    try {
+        //always clear database before adding new entries
+        await News.deleteMany({});
+    } catch (error) {
+        console.log('Error executing cron job' + error);
+    }
+
     GhanaWebProvider()
         .then(() => console.log("Fetched Ghanaweb sources"))
         .catch((error)=> console.log("Error fetching Ghanaweb sources" + error));
